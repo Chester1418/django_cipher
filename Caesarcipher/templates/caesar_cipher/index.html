@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load staticfiles %}
+    <meta charset="UTF-8">
+    <title>Caesar cipher</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'caesar_cipher/css/bootstrap.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'caesar_cipher/css/caesar_cipher.css' %}">
+    <script type="text/javascript" src="{% static 'caesar_cipher/js/jquery-1.12.0.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'caesar_cipher/js/jquery.cookie.js' %}"></script>
+    <script type="text/javascript" src="{% static 'caesar_cipher/js/bootstrap.js' %}"></script>
+    <script type="text/javascript" src="{% static 'caesar_cipher/js/caesar_cipher.js' %}"></script>
+    <script type="text/javascript" src="{% static 'caesar_cipher/chart.js/Chart.js' %}"></script>
+
+</head>
+<body>
+<div id="caesar">
+    <header id="what_is_cipher"><strong>Caesar cipher</strong> -  also known as Caesar's cipher, the shift cipher,
+    Caesar's code or Caesar shift, is one of the simplest and most widely known encryption techniques.
+    It is a type of substitution cipher in which each letter in the plaintext is replaced by a letter some fixed number of positions down the alphabet.
+    For example, with a left shift of 3, D would be replaced by A, E would become B, and so on.
+    The method is named after Julius Caesar, who used it in his private correspondence.</header>
+    <div id="content" class="container">
+        <div class="row">
+            <div class="col-sm-5 ">
+                <textarea id="cipher_input" class="caesar_text" autocomplete="off"></textarea>
+            </div>
+            <div class="col-sm-2 elements">
+                <p><select id="rotation_fo_action" class="form-control" autocomplete="off">
+                        {% for i in rotations %}
+                        <option value="{{ i }}">{{ i }}</option>
+                        {% endfor %}
+                    </select>
+                <p><input id="encrypt_text" type="button" class="btn btn-primary" value="Encrypt text"/></p>
+                <p> <input id="decrypt_text" type="button" class="btn btn-primary" value="Decrypt text"/></p>
+                <p><input id="brute" type="button" class="btn btn-primary" value="Brute force"/></p>
+                <p> <input id="detect_rot" type="button" class="btn btn-primary" value="Try detect"/></p>
+            </div>
+            {%  csrf_token %}
+                <input type='hidden' id="encrypt_text_u" type="button"    value="{% url 'caesarCipher:encrypt_text' %}"/>
+                <input type='hidden' id="decrypt_text_u" type="button"  value="{% url 'caesarCipher:decrypt_text' %}"/>
+                <input type='hidden' id="brute_u" type="button"  value="{% url 'caesarCipher:bruted' %}"/>
+                <input type='hidden' id="detect_rot_u" type="button"  value="{% url 'caesarCipher:detect' %}"/>
+            <div class="col-sm-5 ">
+                <textarea id="cipher_output" class="caesar_text" readonly="readonly"  autocomplete="off"></textarea>
+            </div>
+        </div>
+        <div  class= 'col-sm-6'  id ='rot'>
+        </div>
+        <div>
+            <canvas id="myChart" ></canvas>
+        </div>
+    </div>
+</div>
+</body>
+</html>
